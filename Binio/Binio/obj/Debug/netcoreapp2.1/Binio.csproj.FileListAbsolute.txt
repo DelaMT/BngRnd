@@ -1,0 +1,11 @@
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\bin\Debug\netcoreapp2.1\Binio.deps.json
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\bin\Debug\netcoreapp2.1\Binio.runtimeconfig.json
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\bin\Debug\netcoreapp2.1\Binio.runtimeconfig.dev.json
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\bin\Debug\netcoreapp2.1\Binio.dll
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\bin\Debug\netcoreapp2.1\Binio.pdb
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\obj\Debug\netcoreapp2.1\Binio.csprojAssemblyReference.cache
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\obj\Debug\netcoreapp2.1\Binio.csproj.CoreCompileInputs.cache
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\obj\Debug\netcoreapp2.1\Binio.AssemblyInfoInputs.cache
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\obj\Debug\netcoreapp2.1\Binio.AssemblyInfo.cs
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\obj\Debug\netcoreapp2.1\Binio.dll
+C:\Users\chris.azzopardi\Documents\GitHub\BngRnd\Binio\Binio\obj\Debug\netcoreapp2.1\Binio.pdb
