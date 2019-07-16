@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Binio
 {
@@ -119,33 +121,65 @@ namespace Binio
         static void CallGameMenuSequence()
         {
             bool exit = false;
-            int [] orderedList = new int [99];
-            int [] pulledList = new int [0];
-
+            List<Number> orderedList = new List<Number>();
+            List<Number> pulledList = new List<Number>();
+            orderedList = PopulateArray(orderedList);
             do
             {
-                orderedList = PopulateArray(orderedList);
                 DisplayMenu(2);
                 switch (CallUserKeyInput())
                 {
                     case '1':
                         {
-                            SelectNewNumber(orderedList, pulledList);
+                            if (orderedList != null)
+                            {
+                                CallConsoleMessage("Selected New Number...");
+                                int selectedNum = PullNewNumber(orderedList, pulledList);
+                                Console.WriteLine("The new Number is : " + selectedNum);
+                                CallOptionalKeyMessage();
+                            }
+                            else
+                            {
+                                CallConsoleMessage("ERROR!! All numbers have been pulled!!");
+                                CallOptionalKeyMessage();
+                            }
                         }
                         break;
                     case '2':
                         {
-
+                            pulledList = pulledList.OrderBy(number => number.NumData).ToList();
                         }
                         break;
                     case '3':
                         {
-
+                            orderedList = orderedList.OrderBy(number => number.NumData).ToList();
+                            int start = 1;
+                            for(int i = 0;i < orderedList.Count; i++)
+                            {
+                                Console.WriteLine("===================================");
+                                Console.WriteLine("| " + orderedList[i].ToString() + "| ");
+                                if ((i + 3) <= orderedList.Count)
+                                {
+                                    Console.Write(orderedList[i + 3].ToString() + "| ");
+                                    i += 3;
+                                }
+                                else
+                                if ((i + 2) <= orderedList.Count)
+                                {
+                                    Console.Write(orderedList[i + 2].ToString() + "| ");
+                                }
+                                else
+                                    if ((i + 1) <= orderedList.Count)
+                                {
+                                    Console.Write(orderedList[i + 1].ToString() + "| ");
+                                }
+                            }
+                            CallOptionalKeyMessage();
                         }
                         break;
                     case '4':
                         {
-                            SearchPulledNumbers(orderedList);
+                            SearchPulledNumbers(pulledList);
                         }
                         break;
                     case '5':
@@ -173,31 +207,39 @@ namespace Binio
         }
         
         //Pull/Select new Number
-        static void SelectNewNumber(int [] orderedArray,int [] pulledArray)
+        static int PullNewNumber(List<Number> orderedArray,List<Number> pulledArray)
         {
             Random randNum = new Random();
-            int randomNum = randNum.Next(1, orderedArray.Length - 1);
-            pulledArray[pulledArray.Length - 1] = orderedArray[randomNum];
+            int randomNum = randNum.Next(1, orderedArray.Count - 1);
+
+            Number tempNum = orderedArray[randomNum];
+            tempNum.Pulled = true;
+
+            pulledArray.Add(tempNum);
+            orderedArray.RemoveAt(randomNum);
+            return tempNum.NumData;
         }
 
         //Search Numbers
-        static void SearchPulledNumbers(int[] array)
+        static void SearchPulledNumbers(List<Number> pulledList)
         {
             bool exit = false;
             do
             {
+                pulledList = pulledList.OrderBy(number => number.NumData).ToList();
                 CallConsoleMessage("|Search any Number between 1 and 99!|Write 0 to Exit!|");
                 int userOption = Convert.ToInt32(Console.ReadLine());
                 if(userOption >= 1 && userOption <= 99)
                 {
-                    int pos = Array.BinarySearch(array, userOption);
-                    if (pos >= 0)
+                    Number result = pulledList.Find(x => x.NumData == userOption);
+
+                    if (result == null)
                     {
-                        CallConsoleMessage("SUCCESS!! The number " + userOption + " has been Pulled!!");
+                        CallConsoleMessage("ERROR!! Number has not been Pulled yet!!");
                     }
                     else
                     {
-                        CallConsoleMessage("ERROR!! The number " + userOption + " has not been Pulled Yet!!");
+                        CallConsoleMessage("SUCCESS!! Number has been Pulled!!");
                     }
                 }
                 else if(userOption == 0)
@@ -214,14 +256,17 @@ namespace Binio
         }
 
         //Array populator
-        static int[] PopulateArray(int [] array)
+        static List<Number> PopulateArray(List<Number> orderedList)
         {
-            for(int i = 0; i < array.Length; i++)
+            for(int i = 0; i < 99; i++)
             {
-                array[i] = i+1;
+                Number newNumber = new Number();
+                newNumber.NumData = i + 1;
+                newNumber.Pulled = false;
+                orderedList.Add(newNumber);
             }
             
-            return array;
+            return orderedList;
         }
         //Exit Validator
         static bool CallExitValidator()
